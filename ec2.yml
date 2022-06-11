@@ -1,0 +1,20 @@
+---
+- name: start and stop the instance
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+  tasks:
+  - name: start/stop theinstance
+    local_action:
+      module: ec2
+      instance_id: "{{ item.instance_id }}"
+      region: "{{ item.region }}"
+      state: "{{ state }}"
+      wait: yes
+    with_items:
+      - instance_id: i-02e0792a54aec9741
+        region: us-east-2
+      - instance_id: i-0978d542f04f94893
+        region: us-west-2
+... 
